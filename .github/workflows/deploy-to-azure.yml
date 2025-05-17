@@ -13,9 +13,7 @@ jobs:
     steps:
     # Checkout the repository
     - name: Checkout code
-      run: |
-        git clone ${{ github.repositoryUrl }} .
-        git checkout ${{ github.ref_name }}
+      uses: actions/checkout@v4
 
     # Setup .NET
     - name: Install .NET CLI
