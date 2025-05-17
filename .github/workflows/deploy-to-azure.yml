@@ -8,7 +8,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: ${{ vars.APP_SERVICE_NAME }}    # Set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: './'      # Set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # Set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '9.0.x'           # Set this to the dot net version to use
 
 jobs:
@@ -51,10 +51,8 @@ jobs:
         az webapp create --name ${{ vars.APP_SERVICE_NAME }} \
                      --resource-group ${{ vars.RESOURCE_GROUP_NAME }} \
                      --plan ${{ vars.APP_SERVICE_PLAN_NAME }} \
-                     --sku F1 \
-                     --runtime "DOTNETCORE:9.0" \
-                     --location ${{ vars.AZURE_LOCATION }} \
-                     --os-type Linux
+                     --https-only true \
+                     --runtime "DOTNETCORE:9.0"
 
     # Deploy to Azure Web apps
     - name: 'Run Azure webapp deploy action using Azure Credentials'
