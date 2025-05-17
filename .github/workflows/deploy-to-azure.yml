@@ -23,7 +23,7 @@ jobs:
       - name: Build and publish with dotnet
         run: |
           dotnet build --configuration Release
-          dotnet publish ./Azure.AspNet.Web.Api -c Release -o ./publish
+          dotnet publish ./Azure.AspNet.Web.Api/Azure.AspNet.Web.Api.csproj -c Release -o ./publish
 
       # Login to Azure
       - name: Login to Azure
@@ -37,4 +37,4 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: ${{ vars.APP_SERVICE_NAME }}
-          package: ./publish/Azure.AspNet.Web.Api.dll
+          package: ./publish
