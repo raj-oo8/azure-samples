@@ -31,10 +31,12 @@ jobs:
 
       # Run dotnet build and publish
       - name: dotnet build and publish
+        id: publish
         run: |
           dotnet restore
           dotnet build --configuration Release
           dotnet publish -c Release --property:PublishDir=${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
+          echo "publish_path=${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp" >> $GITHUB_ENV
 
       # Login to Azure
       - name: Login to Azure
@@ -48,7 +50,7 @@ jobs:
         with: 
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: 'Production'
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+          package: ${{ env.publish_path }}
 
       - name: logout
         run: |
