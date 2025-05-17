@@ -31,7 +31,7 @@ jobs:
       run: |
         dotnet restore
         dotnet build --configuration Release
-        dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}' 
+        dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/publishedApp' 
 
     # Login to Azure
     - name: Login to Azure
@@ -59,7 +59,7 @@ jobs:
       uses: azure/webapps-deploy@v3
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
-        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/Azure.AspNet.Web.Api'
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/publishedApp'
       
     - name: logout
       run: |
