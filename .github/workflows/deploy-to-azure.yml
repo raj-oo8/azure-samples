@@ -1,0 +1,56 @@
+name: Deploy to Azure App Service
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Setup .NET
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.0.x'
+
+    # Restore dependencies
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # Build the project
+    - name: Build the project
+      run: dotnet build --configuration Release --no-restore
+
+    # Publish the project
+    - name: Publish the project
+      run: dotnet publish -c Release -o ./publish
+
+    # Login to Azure
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    # Create Azure App Service
+    - name: Create Azure App Service
+      run: |
+        az webapp up --name ${{ vars.APP_SERVICE_NAME }} \
+                     --resource-group ${{ vars.RESOURCE_LOCATION }} \
+                     --plan ${{ vars.APP_SERVICE_PLAN_NAME }} \
+                     --sku F1 \
+                     --runtime "DOTNET|9.0" \
+                     --location ${{ vars.AZURE_LOCATION }}
+
+    # Deploy to Azure App Service
+    - name: Deploy to Azure App Service
+      run: |
+        az webapp deploy --name ${{ vars.APP_SERVICE_NAME }} \
+                         --resource-group ${{ vars.RESOURCE_LOCATION }} \
+                         --src-path ./publish
