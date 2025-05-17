@@ -8,7 +8,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: ${{ vars.APP_SERVICE_NAME }}    # Set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '${{ runner.workspace }}/myapp' # Full path to the web app project
+  AZURE_WEBAPP_PACKAGE_PATH: '.' # Full path to the web app project
   DOTNET_VERSION: '9.0.x'           # Set this to the dot net version to use
 
 jobs:
@@ -34,7 +34,7 @@ jobs:
         run: |
           dotnet restore
           dotnet build --configuration Release
-          dotnet publish -c Release --property:PublishDir=${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          dotnet publish -c Release --property:PublishDir=${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
 
       # Login to Azure
       - name: Login to Azure
@@ -48,7 +48,7 @@ jobs:
         with: 
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           slot-name: 'Production'
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
 
       - name: logout
         run: |
