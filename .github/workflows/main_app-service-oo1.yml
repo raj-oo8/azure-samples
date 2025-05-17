@@ -4,10 +4,7 @@
 name: app-service-oo1
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_dispatch
 
 jobs:
   build:
