@@ -16,10 +16,10 @@ jobs:
       uses: actions/checkout@v4
 
     # Setup .NET
-    - name: Install .NET CLI
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y dotnet-sdk-9.0
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '9.0.x'
 
     # Restore dependencies
     - name: Restore dependencies
