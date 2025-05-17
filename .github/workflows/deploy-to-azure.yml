@@ -31,7 +31,7 @@ jobs:
 
     # Publish the project
     - name: Publish the project
-      run: dotnet publish Azure.AspNet.Web.Api/Azure.AspNet.Web.Api.csproj -c Release -o ./publish
+      run: dotnet publish -c Release -o ./publish --no-restore
 
     # Login to Azure
     - name: Login to Azure
@@ -54,8 +54,7 @@ jobs:
                      --sku F1 \
                      --runtime "DOTNETCORE:9.0" \
                      --location ${{ vars.AZURE_LOCATION }} \
-                     --os-type Linux \
-                     --src-path Azure.AspNet.Web.Api
+                     --os-type Linux
 
     # Deploy to Azure App Service
     - name: Deploy to Azure App Service
