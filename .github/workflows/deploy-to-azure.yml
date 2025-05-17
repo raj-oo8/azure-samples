@@ -54,7 +54,8 @@ jobs:
                      --sku F1 \
                      --runtime "DOTNETCORE:9.0" \
                      --location ${{ vars.AZURE_LOCATION }} \
-                     --os-type Linux
+                     --os-type Linux \
+                     --src-path Azure.AspNet.Web.Api
 
     # Deploy to Azure App Service
     - name: Deploy to Azure App Service
