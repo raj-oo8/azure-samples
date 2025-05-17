@@ -35,12 +35,9 @@ jobs:
 
     # Login to Azure
     - name: Login to Azure
-      run: |
-        az login --service-principal \
-                 --username $(echo "${{ secrets.AZURE_CREDENTIALS }}" | jq -r '.clientId') \
-                 --password $(echo "${{ secrets.AZURE_CREDENTIALS }}" | jq -r '.clientSecret') \
-                 --tenant $(echo "${{ secrets.AZURE_CREDENTIALS }}" | jq -r '.tenantId')
-        az account set --subscription $(echo "${{ secrets.AZURE_CREDENTIALS }}" | jq -r '.subscriptionId')
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     # Create Azure Resource Group
     - name: Create Azure Resource Group
