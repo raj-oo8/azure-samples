@@ -13,11 +13,11 @@ jobs:
     steps:
     # Checkout the repository
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     # Setup .NET
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '9.0.x'
 
@@ -31,11 +31,11 @@ jobs:
 
     # Publish the project
     - name: Publish the project
-      run: dotnet publish -c Release -o ./publish
+      run: dotnet publish Azure.AspNet.Web.Api/Azure.AspNet.Web.Api.csproj -c Release -o ./publish
 
     # Login to Azure
     - name: Login to Azure
-      uses: azure/login@v1
+      uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
@@ -53,7 +53,8 @@ jobs:
                      --plan ${{ vars.APP_SERVICE_PLAN_NAME }} \
                      --sku F1 \
                      --runtime "DOTNET|9.0" \
-                     --location ${{ vars.AZURE_LOCATION }}
+                     --location ${{ vars.AZURE_LOCATION }} \
+                     --os-type Linux
 
     # Deploy to Azure App Service
     - name: Deploy to Azure App Service
