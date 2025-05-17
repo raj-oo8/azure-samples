@@ -52,7 +52,7 @@ jobs:
                      --resource-group ${{ vars.RESOURCE_GROUP_NAME }} \
                      --plan ${{ vars.APP_SERVICE_PLAN_NAME }} \
                      --sku F1 \
-                     --runtime "DOTNET|9.0" \
+                     --runtime "DOTNETCORE:9.0" \
                      --location ${{ vars.AZURE_LOCATION }} \
                      --os-type Linux
 
