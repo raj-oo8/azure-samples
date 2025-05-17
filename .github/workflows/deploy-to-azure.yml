@@ -37,4 +37,4 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: ${{ vars.APP_SERVICE_NAME }}
-          package: ./publish
+          package: ./publish/Azure.AspNet.Web.Api.dll
