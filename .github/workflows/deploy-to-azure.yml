@@ -3,6 +3,9 @@ name: Build and deploy ASP.Net Core app to an Azure Web App
 on:
   workflow_dispatch
 
+permissions:
+  contents: read
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
