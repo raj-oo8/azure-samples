@@ -1,10 +1,10 @@
 name: Azure App Service Deployment
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_dispatch
+
+permissions:
+  contents: read
 
 jobs:
   build:
