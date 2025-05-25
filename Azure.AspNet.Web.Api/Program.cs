@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.OpenApi;
 
 namespace Azure.AspNet.Web.Api
 {
@@ -7,17 +8,14 @@ namespace Azure.AspNet.Web.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
+            builder.Services.AddOpenApi("weatherforecast");
             builder.Services.AddControllers();
 
             var app = builder.Build();
 
             app.UseHttpsRedirection();
-
+            app.MapOpenApi();
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();
