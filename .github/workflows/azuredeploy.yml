@@ -36,7 +36,6 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: dev
     needs: build
     steps:
       # Download publish artifact
