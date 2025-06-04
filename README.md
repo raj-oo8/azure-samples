@@ -7,4 +7,5 @@ This repository contains sample projects covering various topics to demonstrate 
 - Azure App Service
 - GitHub Actions
 - ASP.NET Web API
+- Test
 
